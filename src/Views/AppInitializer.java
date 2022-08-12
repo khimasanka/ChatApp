@@ -25,7 +25,7 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EnterChat.fxml")));
+        Parent root = FXMLLoader.load(getClass().getResource("EnterChat.fxml"));
         primaryStage.setTitle("Tech Chat");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

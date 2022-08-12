@@ -1,4 +1,4 @@
-package ClientWithUi;
+package test.ClientWithUi.ServerWithUi;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -19,19 +20,19 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
-import java.net.Socket;
+import java.net.ServerSocket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
  * @author : Kaveesha Himasanka
- * @package : PACKAGE_NAME
- * @project : Client
- * Kaveesha Himasanka
- * 2022-Aug
  * @since : 0.1.0
+ * Kaveesha Himasanka
+ * 2022
  **/
 public class Controller implements Initializable {
+    @FXML
+    private AnchorPane ap_main;
     @FXML
     private Button button_send;
     @FXML
@@ -41,15 +42,15 @@ public class Controller implements Initializable {
     @FXML
     private VBox vbox_message;
 
-    private Client client;
+    private Server server;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            client = new Client(new Socket("localhost",3000));
-            System.out.println("Connected to server");
-        }catch (IOException e) {
+            server = new Server(new ServerSocket(3000));
+        } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Error creating server");
         }
 
         vbox_message.heightProperty().addListener(new ChangeListener<Number>() {
@@ -59,19 +60,20 @@ public class Controller implements Initializable {
             }
         });
 
-        client.receiveMessageFromServer(vbox_message);
+        server.receiveMessageFromClient(vbox_message);
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String messageToSend = tf_message.getText();
-                if (!messageToSend.isEmpty()) {
+                if(!messageToSend.isEmpty()) {
                     HBox hBox = new HBox();
                     hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.setPadding(new Insets(5,5,5,10));
 
-                    hBox.setPadding(new Insets(5, 5, 5, 10));
                     Text text = new Text(messageToSend);
                     TextFlow textFlow = new TextFlow(text);
+
                     textFlow.setStyle("-fx-color: rgb(239,242,255); " +
                             "-fx-background-color: rgb(15,125,242); " +
                             "-fx-background-radius: 20px; ");
@@ -82,19 +84,19 @@ public class Controller implements Initializable {
                     hBox.getChildren().add(textFlow);
                     vbox_message.getChildren().add(hBox);
 
-                    client.sendMessageToServer(messageToSend);
+                    server.sendMessageToClient(messageToSend);
                     tf_message.clear();
                 }
             }
         });
     }
 
-    public static void addLabel(String msgFromServer, VBox vBox) {
+    public static void addLabel(String messageFromClient ,VBox vBox){
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(5,5,5,10));
 
-        Text text = new Text(msgFromServer);
+        Text text = new Text(messageFromClient);
         TextFlow textFlow = new TextFlow(text);
         textFlow.setStyle("-fx-background-color: rgb(233,233,255); " +
                 "-fx-background-radius: 20px; ");
@@ -103,6 +105,7 @@ public class Controller implements Initializable {
         hBox.getChildren().add(textFlow);
 
         Platform.runLater(new Runnable() {
+
             @Override
             public void run() {
                 vBox.getChildren().add(hBox);

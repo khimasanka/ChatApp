@@ -1,4 +1,4 @@
-package ServerWithUi;
+package test.ClientWithUi.ServerWithUi;
 
 import javafx.scene.layout.VBox;
 
