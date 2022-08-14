@@ -1,4 +1,4 @@
-package Views;/**
+/**
  * @author : Kaveesha Himasanka
  * @package : Views
  * @project : chatApp
@@ -25,7 +25,7 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("EnterChat.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Views/EnterChat.fxml"));
         primaryStage.setTitle("Tech Chat");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

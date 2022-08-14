@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="679.0" prefWidth="487.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientFormController">
+   <children>
+      <Label alignment="CENTER" layoutY="4.0" prefHeight="21.0" prefWidth="487.0" text="Chat Room" wrapText="true">
+         <font>
+            <Font name="Monospaced Bold" size="34.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <Glow level="0.5" />
+         </effect>
+      </Label>
+      <ScrollPane fx:id="spContext" layoutX="14.0" layoutY="73.0" prefHeight="545.0" prefWidth="456.0">
+         <content>
+            <VBox fx:id="vboxContext" prefHeight="541.0" prefWidth="454.0" />
+         </content>
+      </ScrollPane>
+      <TextField fx:id="txtMessage" layoutX="14.0" layoutY="628.0" prefHeight="40.0" prefWidth="321.0" />
+      <Button fx:id="btnSend" layoutX="412.0" layoutY="633.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="58.0" text="Send" />
+      <FontAwesomeIconView glyphName="CAMERA" layoutX="365.0" layoutY="658.0" size="25" />
+   </children>
+</AnchorPane>
