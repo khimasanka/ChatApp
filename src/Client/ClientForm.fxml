@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="679.0" prefWidth="487.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientFormController">
+<AnchorPane prefHeight="679.0" prefWidth="487.0" styleClass="-chat-background-color" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientFormController">
    <children>
-      <Label alignment="CENTER" layoutY="4.0" prefHeight="21.0" prefWidth="487.0" text="Chat Room" wrapText="true">
+      <Label alignment="CENTER" layoutY="4.0" prefHeight="21.0" prefWidth="487.0" text="Chat Room" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Monospaced Bold" size="34.0" />
          </font>
@@ -27,11 +27,15 @@
       </Label>
       <ScrollPane fx:id="spContext" layoutX="14.0" layoutY="73.0" prefHeight="545.0" prefWidth="456.0">
          <content>
-            <VBox fx:id="vboxContext" prefHeight="541.0" prefWidth="454.0" />
+            <VBox fx:id="vboxContext" prefHeight="541.0" prefWidth="454.0" style="-fx-background-color: white;" />
          </content>
       </ScrollPane>
-      <TextField fx:id="txtMessage" layoutX="14.0" layoutY="628.0" prefHeight="40.0" prefWidth="321.0" />
-      <Button fx:id="btnSend" layoutX="412.0" layoutY="633.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="58.0" text="Send" />
-      <FontAwesomeIconView glyphName="CAMERA" layoutX="365.0" layoutY="658.0" size="25" />
+      <TextField fx:id="txtMessage" layoutX="14.0" layoutY="628.0" prefHeight="40.0" prefWidth="321.0" promptText="message here ..." style="-fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: #2B2B2B;" />
+      <Button fx:id="btnSend" layoutX="412.0" layoutY="633.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="58.0" style="-fx-background-color: #01BF72;" text="Send" textFill="WHITE">
+         <font>
+            <Font name="Microsoft YaHei UI Bold" size="14.0" />
+         </font>
+      </Button>
+      <FontAwesomeIconView fill="WHITE" glyphName="CAMERA" layoutX="365.0" layoutY="658.0" size="25" />
    </children>
 </AnchorPane>

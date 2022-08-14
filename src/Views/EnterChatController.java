@@ -30,8 +30,8 @@ public class EnterChatController {
     }
 
     public void loginOnClick(ActionEvent actionEvent) throws IOException {
-        /*Stage window = (Stage) loginContext.getScene().getWindow();
-        window.setScene(new Scene(FXMLLoader.load(getClass().getResource("../ClientWithUi/client.fxml"))));*/
+        Stage window = (Stage) loginContext.getScene().getWindow();
+        window.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Client/ClientForm.fxml"))));
         System.out.println(loginTextField.getText());
     }
 }
