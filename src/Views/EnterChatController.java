@@ -1,15 +1,18 @@
 package Views;
 
+import Logic.Client;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.Socket;
+import java.util.Objects;
 
 /**
  * @author : Kaveesha Himasanka
@@ -23,15 +26,28 @@ public class EnterChatController {
     public TextField loginTextField;
     public Button btnLogin;
     public AnchorPane loginContext;
-    String username;
-
-    public void initialize() {
-
-    }
 
     public void loginOnClick(ActionEvent actionEvent) throws IOException {
-        Stage window = (Stage) loginContext.getScene().getWindow();
-        window.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Client/ClientForm.fxml"))));
-        System.out.println(loginTextField.getText());
+        try {
+            if (!loginTextField.getText().isEmpty()) {
+                createSocket();
+                Stage window = (Stage) loginContext.getScene().getWindow();
+                window.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../Logic/ClientForm.fxml")))));
+            }else {
+                new Alert(Alert.AlertType.ERROR, "please enter username").show();
+            }
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
+    public void createSocket() {
+        try {
+            Socket socket = new Socket("localhost",3001);
+            Client client = new Client(socket,loginTextField.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error creating socket");
+        }
     }
 }

@@ -1,4 +1,6 @@
-package terminal;
+package Logic;
+
+import terminal.ClientHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;

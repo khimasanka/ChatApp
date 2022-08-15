@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Kaveesha Himasanka
  * 2022
  **/
+
 public class ClientHandler implements Runnable {
 
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
@@ -49,6 +50,7 @@ public class ClientHandler implements Runnable {
             }
         }
     }
+
 
     public void broadcastMessage(String messageToSend) throws IOException {
         for (ClientHandler clientHandler : clientHandlers) {

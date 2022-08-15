@@ -1,5 +1,6 @@
 package tests.ClientWithUi;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,13 +13,16 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
@@ -35,6 +39,8 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
     public AnchorPane ap_main;
     @FXML
+    public FontAwesomeIconView btnOpenImage;
+    @FXML
     private Button button_send;
     @FXML
     private TextField tf_message;
@@ -45,23 +51,27 @@ public class Controller implements Initializable {
 
     private Client client;
 
+    final FileChooser fileChooser = new FileChooser();
+
     @Override
+
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            client = new Client(new Socket("localhost",3000));
+            client = new Client(new Socket("localhost", 3001));
             System.out.println("Connected to server");
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         vbox_message.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                sp_main.setVvalue((Double)newValue);
+                sp_main.setVvalue((Double) newValue);
             }
         });
 
-        client.receiveMessageFromServer(vbox_message);
+        client.
+                receiveMessageFromServer(vbox_message);
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -78,8 +88,8 @@ public class Controller implements Initializable {
                             "-fx-background-color: rgb(15,125,242); " +
                             "-fx-background-radius: 20px; ");
 
-                    textFlow.setPadding(new Insets(5,10,5,10));
-                    text.setFill(Color.color(0.934,0.945,0.994));
+                    textFlow.setPadding(new Insets(5, 10, 5, 10));
+                    text.setFill(Color.color(0.934, 0.945, 0.994));
 
                     hBox.getChildren().add(textFlow);
                     vbox_message.getChildren().add(hBox);
@@ -91,17 +101,19 @@ public class Controller implements Initializable {
         });
     }
 
+
+
     public static void addLabel(String msgFromServer, VBox vBox) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
-        hBox.setPadding(new Insets(5,5,5,10));
+        hBox.setPadding(new Insets(5, 5, 5, 10));
 
         Text text = new Text(msgFromServer);
         TextFlow textFlow = new TextFlow(text);
         textFlow.setStyle("-fx-background-color: rgb(233,233,255); " +
                 "-fx-background-radius: 20px; ");
 
-        textFlow.setPadding(new Insets(5,10,5,10));
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);
 
         Platform.runLater(new Runnable() {
@@ -110,5 +122,11 @@ public class Controller implements Initializable {
                 vBox.getChildren().add(hBox);
             }
         });
+    }
+
+    public void openFileChooser(MouseEvent mouseEvent) {
+        fileChooser.setTitle("Open File");
+        File file =fileChooser.showOpenDialog(null);
+
     }
 }

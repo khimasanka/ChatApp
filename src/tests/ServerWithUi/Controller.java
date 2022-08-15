@@ -12,7 +12,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -32,8 +31,6 @@ import java.util.ResourceBundle;
  **/
 public class Controller implements Initializable {
     @FXML
-    private AnchorPane ap_main;
-    @FXML
     private Button button_send;
     @FXML
     private TextField tf_message;
@@ -47,7 +44,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            server = new Server(new ServerSocket(3000));
+            server = new Server(new ServerSocket(3001));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error creating server");
